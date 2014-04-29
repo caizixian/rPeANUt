@@ -1,0 +1,27 @@
+; struct xypoint{
+; int x; offset of #0 in the struct
+; int y; offset of #1 in the struct
+;};
+
+; struct xypoint p1;
+; struct xypoint *pp1;
+
+0x0100:
+	load #p1 R1 ; p1.x = 4;
+	load #0 R2
+	add R1 R2 R3
+	load #4 R0
+	store R0 R3
+
+	load #p1 R1 ; pp1 = &p1;
+	store R1 pp1
+	
+	load pp1 R1 ; pp1 -> 7;
+	load #1 R2
+	add R1 R2 R3
+	load #7 R0
+	store R0 R3
+	halt
+
+p1: block 2;
+pp1: block 1;

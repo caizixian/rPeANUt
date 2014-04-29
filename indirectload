@@ -1,0 +1,23 @@
+0x0100 : 
+	load #varstr R2 
+	store R2 varptr
+	jump whilebool 
+
+loop : 	load varptr R3 
+	load R3 R4
+	store R4 0xfff0
+	load #'\n' R4
+	store R4 0xfff0
+	load varptr R3 
+	load #1 R5
+	add R3 R5 R3
+	store R3 varptr
+
+whilebool: 
+	load varptr R1 
+	load R1 R2
+	jumpnz R2 loop
+	halt
+
+varptr : block 1
+varstr : block #"Hello"

@@ -1,0 +1,23 @@
+0x0100:
+	load varx R0
+	load vary R1
+	sub R0 R1 R2
+	jumpnz R2 elsecode
+
+ifcode:
+	load #42 R3
+	add R0 R2 R0
+	store R0 varx
+	jump endifelse
+
+elsecode:
+	load #101 R3
+	sub R3 R1 R1
+	store R1 vary
+
+endifelse:
+	halt
+
+0x5000:
+	varx: block #6
+	vary: block #6

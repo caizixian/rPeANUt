@@ -1,0 +1,30 @@
+0x100:
+	load #0 R0
+	store R0 varsum
+
+forinit:
+	load #1 R0
+	store R0 vari
+	jump forbool
+
+forcode:
+	load varsum R0
+	load vari R1
+	add R0 R1 R0
+	store R0 varsum
+
+forinc:
+	load vari R1
+	load #1 R0
+	add R0 R1 R1
+	store R1 vari
+
+forbool:
+	load vari R1
+	load #6 R2
+	sub R1 R2 R3
+	jumpn R3 forcode
+	halt
+
+vari:	block 1
+varsum: block 1

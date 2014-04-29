@@ -1,0 +1,24 @@
+0x0100:	load #'\n' R5
+	load #'*' R4
+	load #0 R0
+	load #9 R1
+
+rest_counter:
+	load #0 R2
+	load #9 R3
+	store R5 0xfff0
+
+outer_loop: 
+	sub R1 R0 R6
+	jumpz R6 done
+	add ONE R0 R0
+	inner_loop :
+		sub R3 R2 R7
+		jumpz R7 rest_counter
+		add ONE R2 R2
+		store R4 0xfff0
+		jump inner_loop
+	jump outer_loop	
+
+done: halt
+	

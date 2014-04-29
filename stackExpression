@@ -1,0 +1,26 @@
+ 0x00100:
+	load #3 R0
+	push R0
+
+	load varx R0
+	push R0
+
+	pop R0
+	pop R1
+	mult R0 R1 R0
+	push R0
+
+	load #2 R0
+	push R0
+
+	pop R0
+	pop R1
+	mult R0 R1 R0
+	push R0
+	halt
+
+varx: block #1
+
+; 2*(3+x)
+; 3x + 2*
+

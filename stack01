@@ -1,0 +1,13 @@
+0x0100:
+	load #4 R2
+	push R2
+
+	load #7 R2
+	push R2
+
+	load #3 R2
+	push R2
+
+	pop R0
+	pop R0
+	pop R0

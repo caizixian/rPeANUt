@@ -1,0 +1,29 @@
+0x0100:
+	jump whilebool
+
+whilecode:
+	load varc R1
+	store R1 0xfff0
+
+whilebool:
+	push R0
+	call getc
+	pop R0
+	store R0 varc
+	load #'q' R1
+	sub R0 R1 R2
+	jumpz R2 whiledone
+	jump whilecode
+
+whiledone:
+	halt
+
+varc: 
+	block 1
+
+getc:
+	load 0xFFF1 R2
+	jumpz R2 getc
+	load 0xFFF0 R2
+	store R2 #-1 SP
+	return
