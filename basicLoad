@@ -1,0 +1,7 @@
+0x0100:
+	load #2 R1
+	store R1 string
+	load #string R0 
+	load string R2
+
+string: block 1

@@ -1,0 +1,15 @@
+0x0100:
+	push R0
+	call funcation
+	pop R2
+
+	load #7 R0
+	push R0
+
+	pop R2
+	halt
+
+funcation:
+	load #2 R1
+	store R1 #-1 SP
+	return

@@ -1,0 +1,30 @@
+; stack frame:
+; return address #0
+; xvar #-1
+; yvar #-2
+
+gcd:
+	load SP #-2 R0
+	jumpz R0 gcdif
+	load SP #-1 R1 ;x
+	load SP #-2 R2 ;y
+	mod R1 R2 R1 ; x % y
+
+	push R1
+	push R2
+	call gcd
+	
+gcdif:
+	load SP #-1 R0
+	halt
+	
+0x0100:
+	load varx R1
+	load vary R2
+	push R2
+	push R1
+	call gcd
+
+; x >= y abd y >= 0
+varx:	block #40
+vary:	block #30

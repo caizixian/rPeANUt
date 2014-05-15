@@ -1,0 +1,21 @@
+0x0100 : 
+	store ZERO varpos
+	jump whilebool
+
+loop : 
+	load varpos R3 
+	load R3 #varstr R4
+	store R4 0xfff0
+
+	load varpos R3
+	add R3 ONE R3
+	store R3 varpos
+
+whilebool: 
+	load varpos R1
+	load R1 #varstr R2
+	jumpnz R2 loop
+	halt
+
+varpos : block 1
+varstr : block #"Hello World"

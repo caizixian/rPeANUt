@@ -1,0 +1,61 @@
+0x0100:
+	load #'H' R0
+	push R0
+	call putc
+	pop R0
+
+	load #'e' R0
+	push R0
+	call putc
+	pop R0
+	
+	load #'l' R0
+	push R0
+	call putc
+	pop R0
+
+	load #'l' R0
+	push R0
+	call putc
+	pop R0
+
+	load #'o' R0
+	push R0
+	call putc
+	pop R0
+
+	load #' ' R0
+	push R0
+	call putc
+	pop R0
+
+	load #'W' R0
+	push R0
+	call putc
+	pop R0
+
+	load #'o' R0
+	push R0
+	call putc
+	pop R0
+
+	load #'r' R0
+	push R0
+	call putc
+	pop R0
+
+	load #'l' R0
+	push R0
+	call putc
+	pop R0
+
+	load #'d' R0
+	push R0
+	call putc
+	pop R0
+	halt
+
+putc:
+	load SP #-1 R0
+	store R0 0xfff0
+	return 

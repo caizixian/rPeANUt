@@ -1,0 +1,6 @@
+0x0100:
+	rotate #1 ONE R4
+	neg R4 R4
+
+	store R4 0x7c40
+	halt

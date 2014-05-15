@@ -1,0 +1,8 @@
+0x100:
+
+start:
+	load 0xfff1 R0
+	jumpz R0 start
+	load 0xfff0 R1
+	store R1 0xfff0
+	jump start

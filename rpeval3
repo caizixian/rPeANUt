@@ -1,0 +1,21 @@
+0x100:
+	load x R0
+	load R0 #table R1
+	load y R2
+	add R1 R2 R3
+	store R3 z
+	
+	halt
+
+x:
+	block #4
+y:
+	block #5
+z:
+	block 1
+
+table:
+	block #2
+	block #5
+	block #8
+	block #11

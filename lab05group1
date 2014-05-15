@@ -1,0 +1,16 @@
+0x0100 :
+    load varbase R0
+    load varpower R1
+    load #1 R2
+    jump whilebool
+
+loop :
+    mult R2 R0 R2
+    sub R1 ONE R1
+
+whilebool:
+    jumpnz R1 loop
+    halt
+
+varbase : block #2
+varpower : block #3

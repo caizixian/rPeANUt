@@ -1,0 +1,19 @@
+0x0100:
+	load #'H' R0
+	push R0
+	call putc
+	pop R0
+	load #'i' R0
+	push R0
+	call putc
+	pop R0
+	halt
+
+;void putc(char c)
+; #0 return address
+; #-1 variable c
+
+putc:
+	load SP #-1 R0
+	store R0 0xfff0
+	return

@@ -1,0 +1,8 @@
+0x100:
+	load #48 R2
+start:
+	load 0xfff1 R0
+	jumpz R0 start
+	load 0xfff0 R1
+	sub R1 R2 R2
+

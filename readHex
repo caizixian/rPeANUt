@@ -1,0 +1,45 @@
+;hexadecimal stack frame
+; 
+;
+
+0x0100:
+	load #97 R0
+	load #48 R1
+
+start:
+	load 0xfff1 R2
+	jumpz R2 start
+	load 0xfff0 R2
+	sub R2 R0 R3
+	jumpn R3 convert09
+
+	sub R2 R0 R2
+	load #6 R3
+	sub R2 R3 R3
+	jumpn R3 convertAF
+	halt
+
+convert09:
+	sub R2 R1 R2
+	halt
+
+
+convertAF:
+	load R2 #ascii R2
+	;load #16 R0
+	;mult R0 R1 R1
+	halt
+
+ascii:
+	block #10
+	block #11
+	block #12
+	block #13
+	block #14
+	block #15
+
+0x0100:
+	
+
+	
+
