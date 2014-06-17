@@ -1,0 +1,116 @@
+0x0100:
+	load x R0
+	load y R1
+	store R0 topleftX
+	store R1 topleftY
+
+	load width R7
+	jump drawUp
+drawUp:
+	call drawPixel
+	load x R0
+	add R0 ONE R0
+	store R0 x
+	sub R7 ONE R7
+	jumpnz R7 drawUp
+	jump setDown
+
+setDown:
+	load topleftX R0
+	load topleftY R1
+	load height R3
+	load width R7
+	add R3 R1 R1
+	store R0 x
+	store R1 y
+	jump drawDown
+
+drawDown:
+	call drawPixel
+	load x R0
+	add R0 ONE R0
+	store R0 x
+	sub R7 ONE R7
+	jumpnz R7 drawDown
+	jump setleft
+
+setleft:
+	load topleftX R0
+	load topleftY R1
+	load height R7
+	store R0 x
+	store R1 y
+	jump drawleft
+
+drawleft:
+	call drawPixel
+	load y R0
+	add R0 ONE R0
+	store R0 y
+	sub R7 ONE R7
+	jumpnz R7 drawleft
+	jump setright
+
+setright:
+	load topleftX R0
+	load topleftY R1
+	load width R2
+	load height R7
+	add R0 R2 R0
+	sub R0 ONE R0
+	store R0 x
+	store R1 y
+	jump drawright
+
+drawright:
+	call drawPixel
+	load y R0
+	add R0 ONE R0
+	store R0 y
+	sub R7 ONE R7
+	jumpnz R7 drawright
+	halt
+
+drawPixel:
+	load x R0 
+	load y R1 
+	
+	load #32 R4
+	mod R0 R4 R4
+	rotate R4 ONE R4
+
+	load #0x7C40 R2
+
+	load #6 R3
+	mult R1 R3 R1
+	load #32 R3
+	div R0 R3 R0
+	
+	add R0 R2 R2
+	add R1 R2 R2
+	
+	load R2 R3
+	or R3 R4 R4
+
+	store R4 R2
+	return
+
+;;;;;;;;;;;;;;;;;;;;
+
+x:
+	block #50
+y:
+	block #50
+
+width:
+	block #50
+
+height:
+	block #50
+
+topleftX:
+	block #1
+
+
+topleftY:
+	block #1

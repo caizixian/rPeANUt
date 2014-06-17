@@ -1,0 +1,14 @@
+0x0001:
+	jump iohand
+
+0x0100:
+	store ONE 0xfff2
+	load #'*' R0
+	store R0 0xfff0
+	jump 0x0100
+
+iohand:
+	load #'#' R0
+	store R0 0xfff0
+	reset IM
+	return

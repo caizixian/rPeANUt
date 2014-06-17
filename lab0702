@@ -1,0 +1,32 @@
+; R1 0 read 1 write
+0x0001:
+	jump iohand
+
+0x0100:
+	load ONE R0
+	store ONE 0xfff2
+	jump 0x0100
+
+iohand:
+	load #'q' R1
+	load ONE R3
+	sub R3 R0 R3
+	jumpz R3 write
+
+	push R2
+	call getc
+	pop R2
+	reset IM
+	return
+
+write:
+	store R1 0xfff0
+	return
+
+getc:
+	load 0xFFF1 R2
+	jumpz R2 getc
+	load 0xFFF0 R2
+	store R2 #-1 SP
+	return
+	

@@ -1,0 +1,32 @@
+0x0001:
+	jump iohand
+
+0x00003:
+	jump timehand
+
+0x0100:
+	store ONE 0xfff2
+	set TI 
+loop:
+	load #'*' R0
+	store R0 0xfff0
+	jump 0x0100
+
+iohand:
+	push R0
+	push R1
+	load #'#' R0
+	load 0xfff0 R1
+	store R0 0xfff0
+	pop R1
+	pop R0
+	reset IM
+	return
+
+timehand:
+	push R0
+	load #'t' R0
+	store R0 0xfff0
+	pop R0
+	reset IM
+	return

@@ -9,5 +9,23 @@ loop:
 	add R2 ONE R2
 	sub R1 ONE R1
 	jumpnz R1 loop
-	halt
+
+	jump clear
+
+clear:
+	load #960 R1
+	load #0x7c40 R2
+	rotate #0 ZERO R3
+	neg R3 R3
+	
+blackscreen:
+	store R3 R2
+	add R2 ONE R2
+	sub R1 ONE R1
+	jumpnz R1 blackscreen
+	
+
+	
+	
+	
 

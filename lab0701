@@ -1,0 +1,22 @@
+
+0x0002: jump traphandler
+
+0x0100:
+	trap
+	jump 0x0100
+	halt
+	
+traphandler:	
+	load #trapstr R0
+loop:	load R0 R1
+	jumpz R1 end
+	store R1 0xfff0
+	add ONE R0 R0
+	jump loop
+end:
+	reset IM
+	return
+
+trapstr:
+	block #"word"
+

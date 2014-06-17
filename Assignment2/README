@@ -1,0 +1,24 @@
+Tests
+----------
+fillhalttest : fills the screen and halts.
+fillclearhalttest : fills, clears, and halts.
+linestest : Draws "Hello" using lines.
+pointtreetest : Draws a tree on an island using just points.
+boxestest : Draw a number of boxes arranged in a pattern.
+snowman : Draws a snowman using rectangles, lines, and points.
+
+java -jar rPeANUt2.3.jar -dump mysolution.s < halttest.commands | diff - halttest.dump
+
+java -jar rPeANUt2.3.jar -dump mysolution.s < fillhalttest.commands | diff - fillhalttest.dump
+
+java -jar rPeANUt2.3.jar -dump mysolution.s < fillclearhalttest.commands | diff - fillclearhalttest.dump
+
+java -jar rPeANUt2.3.jar -dump mysolution.s < pointtreetest.commands | diff - pointtreetest.dump
+
+java -jar rPeANUt2.3.jar -dump mysolution.s < boxestest.commands | diff - boxestest.dump 
+
+java -jar rPeANUt2.3.jar -dump mysolution.s < linestest.commands | diff - linestest.dump
+
+java -jar rPeANUt2.3.jar -dump mysolution.s < snowman.commands | diff - snowman.dump
+
+

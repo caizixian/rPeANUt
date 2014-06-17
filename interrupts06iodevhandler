@@ -1,0 +1,19 @@
+0x00001:
+	jump iodevhandler
+
+iodevhandler:
+	push R0
+	load 0xFFF0 R0
+	store R0 0xFFF0
+	pop R0
+	reset IM
+	return
+
+0x0100:
+	store ONE 0xFFF2
+
+loop:
+	load #'*' R0
+	store R0 0xfff0
+	jump loop
+	

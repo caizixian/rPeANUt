@@ -1,0 +1,80 @@
+0x0100:
+	load x R0
+	load y R1
+	store R0 topleftX
+	store R1 topleftY
+	load y R0
+	load height R1
+	add R0 R1 R0
+	store R0 bottomleftY
+	
+	jump drawRect
+
+drawRect:
+	load y R0
+	load bottomleftY R1
+	sub R1 R0 R0
+	load width R7
+	jumpnz R0 drawRectLine
+	halt
+	
+drawRectLine:
+	call drawPixel
+	load x R0
+	add R0 ONE R0
+	store R0 x
+	sub R7 ONE R7
+	jumpnz R7 drawRectLine
+	load y R0
+	add R0 ONE R0
+	store R0 y
+	load topleftX R0
+	store R0 x
+	jump drawRect
+
+drawPixel:
+	load x R0
+	load y R1
+	
+	load #32 R4
+	mod R0 R4 R4
+	rotate R4 ONE R4
+
+	load #0x7C40 R2
+
+	load #6 R3
+	mult R1 R3 R1
+	load #32 R3
+	div R0 R3 R0
+	
+	add R0 R2 R2
+	add R1 R2 R2
+	
+	load R2 R3
+	or R3 R4 R4
+
+	store R4 R2
+	return
+
+;;;;;;;;;;;;;;;;;;;;
+
+x:
+	block #10
+
+y:
+	block #10
+
+width:
+	block #10
+
+height:
+	block #10
+
+topleftX:
+	block #1
+
+topleftY:
+	block #1
+
+bottomleftY:
+	block #1

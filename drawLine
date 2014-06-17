@@ -1,6 +1,183 @@
 0x0100:
-	rotate #1 ONE R4
-	neg R4 R4
+	jump line
 
-	store R4 0x7c40
+line:
+	; dx := abs(x1 - x0)
+	load x1 R1
+	load x0 R2
+	push R0
+	push R1
+	push R2
+	call abs
+	pop R0
+	pop R0
+	pop R0
+	store R0 dx
+
+	; dy := abs(y1 - y0)
+	load y1 R1
+	load y0 R2
+	push R0
+	push R1
+	push R2
+	call abs
+	pop R0
+	pop R0
+	pop R0
+	store R0 dy
+
+	;if x0 < x1
+ifx0<x1:
+	load x0 R0
+	load x1 R1
+	sub R0 R1 R2
+	jumpn R2 sxOne
+	store MONE sx
+
+ify0<y1:
+	load y0 R0
+	load y1 R1
+	sub R0 R1 R2
+	jumpn R2 syOne
+	store MONE sy
+
+storeErr:
+	load dx R0
+	load dy R1
+	sub R0 R1 R2
+	store R2 err
+
+lineloop:
+	call setPixel
+	;if x0 = x1 and y0 = y1 exit loop
+	load x0 R0
+	load x1 R1
+	sub R0 R1 R2
+	jumpz R2 andBool
+
+2err:
+	load err R0
+	load #2 R1
+	mult R0 R1 R0
+	store R0 e2
+	
+	;if e2 > -dy
+	load e2 R0
+	load dy R1
+	sub ZERO R1 R1
+	sub R1 R0 R2
+	jumpn R2 e2dy
+
+ife2<dx:
+	load e2 R0
+	load dx R1
+	sub R0 R1 R2
+	jumpn R2 errdx
+	jump lineloop
+
+errdx:
+	load err R0
+	load dx R1
+	add R0 R1 R0
+	store R0 err
+	load y0 R0
+	load sy R1
+	add R0 R1 R0
+	store R0 y0
+	jump lineloop
+
+e2dy:
+	load err R0
+	load dy R1
+	sub R0 R1 R0
+	store R0 err
+	load x0 R0
+	load sx R1
+	add R0 R1 R0
+	store R0 x0
+	jump ife2<dx
+
+andBool:
+	load y0 R0
+	load y1 R1
+	sub R0 R1 R2
+	jumpz R2 exitLoop
+	jump 2err
+
+exitLoop:
 	halt
+
+sxOne:
+	store ONE sx
+	jump ify0<y1
+
+syOne:
+	store ONE sy
+	jump storeErr
+
+setPixel:
+	load x0 R0
+	load y0 R1
+	
+	load #32 R4
+	mod R0 R4 R4
+	rotate R4 ONE R4
+
+	load #0x7C40 R2
+
+	load #6 R3
+	mult R1 R3 R1
+	load #32 R3
+	div R0 R3 R0
+	
+	add R0 R2 R2
+	add R1 R2 R2
+	
+	load R2 R3
+	or R3 R4 R4
+
+	store R4 R2
+	return
+
+abs:
+	load SP #-2 R0
+	load SP #-1 R1
+	sub R0 R1 R2
+	jumpn R2 subReverse
+	store R2 #-3 SP
+	return
+
+subReverse:
+	sub R1 R0 R2
+	store R2 #-3 SP
+	return
+
+x0:
+	block #5
+
+y0:
+	block #8
+
+x1:
+	block #10
+
+y1:
+	block #10
+
+dx:
+	block 1
+
+dy:
+	block 1
+
+sx:
+	block 1
+
+sy:
+	block 1
+
+err:
+	block 1
+
+e2:
+	block 1

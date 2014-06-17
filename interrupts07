@@ -1,0 +1,51 @@
+memfault:halt
+
+iodev:
+	jump serviceio
+
+trap:
+	jump servicetrap
+
+serviceio:
+	push R0
+	push R1
+	load 0xFFF0 R0
+	store R0 0xFFF0
+	pop R1
+	pop R0
+	reset IM
+	return
+
+servicetrap:
+	push R0
+	push R1
+	push R2
+	load #trapstr R0
+	load #1 R1
+	jump stbool
+
+stloop:
+	store R2 0xFFF0
+	add R0 R1 R0
+
+stbool:
+	load R0 R2
+	jumpnz R2 stloop
+	pop R2
+	pop R1
+	pop R0
+	reset IM
+	return
+
+trapstr:
+	block #"trap"
+
+0x0100:
+	load #1 R0
+	trap
+	store R0 0xFFF2
+
+loop:
+	load #1 R0
+	add R0 R1 R1
+	jump loop
